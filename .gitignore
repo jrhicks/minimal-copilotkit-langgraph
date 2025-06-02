@@ -1,7 +1,7 @@
-
 # LangGraph API
 .langgraph_api
 .cursor/**/*
 .cursor/
 node_modules
 .env
+.DS_Store

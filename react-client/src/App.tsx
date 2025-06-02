@@ -18,6 +18,39 @@ function CounterCard() {
     },
   })
 
+  useCopilotAction({
+    name: "resetCounter",
+    description: "Reset the counter to 0.",
+    available: "remote",
+    renderAndWaitForResponse: ({ respond, status }) => {
+      if (status !== "executing") return <></>;
+      return (
+        <div className="bg-neutral-200 rounded-xl p-6 flex flex-col items-center gap-4 w-full max-w-xs mx-auto">
+          <div className="text-lg font-semibold text-neutral-800 mb-2 text-center">
+            Reset the counter to zero?
+          </div>
+          <div className="flex gap-4 w-full justify-center">
+            <button
+              className="rounded-lg border border-green-700 px-6 py-2 text-lg font-semibold bg-green-600 text-white hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-400 transition-colors"
+              onClick={() => {
+                setCount(0);
+                respond?.("counter reset");
+              }}
+            >
+              Reset
+            </button>
+            <button
+              className="rounded-lg border border-neutral-700 px-6 py-2 text-lg font-semibold bg-neutral-700 text-neutral-400 hover:bg-neutral-800 focus:outline-none focus:ring-2 focus:ring-neutral-500 transition-colors"
+              onClick={() => respond?.("reset cancelled")}
+            >
+              Cancel
+            </button>
+          </div>
+        </div>
+      );
+    },
+  })
+
   return (
     <div className="p-8 rounded-xl bg-neutral-800 shadow-md flex flex-col items-center gap-4 my-6">
       <button
