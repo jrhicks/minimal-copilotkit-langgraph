@@ -1,58 +1,102 @@
-# Project Setup and Server Start Instructions
+# Minimal Self-Hosted CopilotKit + LangGraph Agent
 
-## Starting the FastAPI Server
+## Components
 
-1. Open a terminal and navigate to the `lang-graph-service` directory:
+```mermaid
+graph TD
+    RC[react-client]
+    CR[copilot-runtime-service]
+    LG[lang-graph-service]
+    RC <--> CR
+    CR <--> LG
+```
+
+## Minimal Self-Hosted Configuration
+
+* CopilitKit React without NextJS (Vite)
+* Self Hosted CopilotKit Runtime with Node.js HTTP
+* Self Hosted LangGraph Agent with FastAPI (LangGraph)
+
+### CopilotKit UI
+- [ ] NextJS
+- [x] Vite
+
+### CopilotKit Connection
+- [ ] Copilot Cloud
+- [x] Self-Hosted Copilot Runtime
+
+### Self Hosted Copilot Runtime
+- [ ] Next.js App Router
+- [ ] Next.js Page Router
+- [ ] Node.js Express
+- [x] Node.js HTTP
+- [ ] NestJS
+
+### LangGraph Language
+- [x] Python
+- [ ] Typescript
+
+### LangGraph Agent
+- [ ] Local (LangGraph Studio)
+- [x] Self hosted (FastAPI)
+- [ ] LangGraph Platform
+
+## Installation (from root)
+
+1. **Clone the repo:**
+   ```sh
+   git clone <repo-url>
+   cd lang-graph-copilotkit
+   ```
+2. **Install all dependencies:**
+   ```sh
+   pnpm install
+   # This will install dependencies in all subprojects (uses postinstall)
+   ```
+   For Python dependencies (LangGraph agent):
    ```sh
    cd lang-graph-service
-   ```
-2. Install dependencies (if you haven't already):
-   ```sh
    poetry install
-   ```
-3. Start the server:
-   ```sh
-   poetry run python server.py
-   ```
-
-The server will start on port 8000 by default. You can access it at `http://localhost:8000`.
-
----
-
-## Running the Copilot Runtime Dev Server
-
-1. Open a terminal and navigate to the `copilot-runtime-service` directory:
-   ```sh
-   cd copilot-runtime-service
-   ```
-2. Install dependencies (if you haven't already):
-   ```sh
-   pnpm install
-   ```
-3. Start the development server:
-   ```sh
-   pnpm run dev
-   ```
-
-The server will start on port 4000 by default. You can access it at `http://localhost:4000/copilotkit`.
-
----
-
-## Running the React Client
-
-1. Open a terminal and navigate to the `react-client` directory:
-   ```sh
-   cd react-client
-   ```
-2. Install dependencies (if you haven't already):
-   ```sh
-   pnpm install
-   ```
-3. Start the development server:
-   ```sh
-   pnpm run dev
+   cd ..
    ```
 
 ---
 
-Add any additional project-specific instructions below as needed.
+## Running All Services (from root)
+
+1. **Copy environment variables:**
+   ```sh
+   cp lang-graph-service/.env.example lang-graph-service/.env
+   # Edit lang-graph-service/.env and set your OPENAI_API_KEY
+   ```
+2. **Start all services:**
+   ```sh
+   pnpm dev
+   # This runs react-client, copilot-runtime-service, and lang-graph-service concurrently
+   ```
+
+- React client: http://localhost:5173
+- Copilot runtime: http://localhost:4000/copilotkit
+- LangGraph agent: http://localhost:8000/copilotkit
+
+---
+
+## Contributing
+
+Contributions are welcome! Please open issues or pull requests for bug fixes, improvements, or new features.
+
+---
+
+## Environment Variables
+
+- Copy `.env.example` to `.env` in `lang-graph-service`:
+  ```sh
+  cp lang-graph-service/.env.example lang-graph-service/.env
+  ```
+- Set your `OPENAI_API_KEY` and `LANGSMITH_API_KEY` in `lang-graph-service/.env`.
+
+---
+
+## License
+
+MIT
