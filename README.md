@@ -1,19 +1,10 @@
-# Minimal Self-Hosted CopilotKit + LangGraph Agent
+# 👋 Minimal Self-Hosted CopilotKit + LangGraph Agent
+
+Get all AG-UI features betwen langgraph and copilotkit working with minimal cloud/framework dependencies.
 
 ![Minimal Preview](./react-client/minimal-preview.gif)
 
-## Components
-
-```mermaid
-graph TD
-    RC[react-client]
-    CR[copilot-runtime-service]
-    LG[lang-graph-service]
-    RC <--> CR
-    CR <--> LG
-```
-
-## Minimal Self-Hosted Configuration
+## Minimal Cloud Dependencies
 
 * CopilitKit React without NextJS (Vite)
 * Self Hosted CopilotKit Runtime with Node.js HTTP
@@ -43,7 +34,54 @@ graph TD
 - [x] Self hosted (FastAPI)
 - [ ] LangGraph Platform
 
-## Running
+## AG-UI Feature Checklist
+
+Demonstrates:
+
+- [x] 🤖 Agentic Chat
+   - [x] Natural Conversation: Chat with your Copilot in a familiar chat interface,
+   - [x] Frontend Tool Execution: The Copilot can directly interacts with your UI by calling frontend functions,
+   - [x] Seamless Integration: Tools defined in the frontend and automatically discovered and made available to the agent,
+   - [x] Tool Based Generative UI - Frontend Rendering of Tool Calls: Backend tool calls are automatically rendered in the UI
+- [ ] 🚀 Agentic Generative UI
+   - [ ] Real-time Status Updates: The Copilot provides live feedback as it works through complex tasks
+   - [ ] Long-running Task Execution: See how agents can handle extended processes with continuous feedback
+   - [ ] Dynamic UI Generation: The interface updates in real-time to reflect the agent's progress
+- [ ] 🤝    Human In the Loop
+   - [ ] Collaborative Planning: The Copilot generates task steps and lets you decide which ones to perform
+   - [ ] Interactive Decision Making: Select or deselect steps to customize the execution plan
+   - [ ] Adaptive Responses: The Copilot adapts its execution based on your choices, even handling missing steps
+- [ ] 🍳 Shared State
+   - [ ] Frontend → Agent: UI controls update the agent's context in real-time
+   - [ ] Agent → Frontend: The Copilot's recipe creations instantly update the UI components
+- [ ] 📝 Predictive State Updates Document Editor
+   - [ ] Live Document Editing: Watch as your Copilot makes changes to a document in real-time
+   - [ ] Diff Visualization: See exactly what's being changed as it happens
+   - [ ] Streaming Updates: Changes are displayed character-by-character as the Copilot works
+- [ ] 🪶 Tool-Based Generative UI
+   - [ ] Frontend Rendering of Tool Calls: Backend tool calls are automatically rendered in the UI
+   - [ ] Dynamic UI Generation: The UI updates in real-time as the agent generates content
+   - [ ] Elegant Content Presentation: Complex structured data (haikus) are beautifully displayed
+
+
+## Project Structure
+
+This monorepo contains 3 interconnected projects that work together to demonstrate CopilotKit and LangGraph integration:
+
+- `react-client`: The frontend React application
+- `copilot-runtime-service`: The CopilotKit runtime service
+- `lang-graph-service`: The LangGraph agent service
+
+All projects can be installed and run from the root directory using pnpm workspace commands.
+
+```mermaid
+graph TD
+    RC[react-client]
+    CR[copilot-runtime-service]
+    LG[lang-graph-service]
+    RC <--> CR
+    CR <--> LG
+```
 
 1. **Clone the repo:**
    ```sh
@@ -74,7 +112,7 @@ graph TD
 
 ## Contributing
 
-Contributions are welcome! Please open issues or pull requests for bug fixes, improvements, or new features.
+Contributions are welcome!  I'm trying to get all the AG-UI features working.  You can find many examples at: https://github.com/CopilotKit/CopilotKit/tree/main/examples
 
 ---
 
