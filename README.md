@@ -1,4 +1,4 @@
-# 👋 Minimal Self-Hosted CopilotKit + LangGraph Agent
+# 👋 Minimal CopilotKit + LangGraph Dojo
 
 Get all AG-UI features betwen langgraph and copilotkit working with minimal cloud/framework dependencies.
 
