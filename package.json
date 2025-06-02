@@ -1,0 +1,11 @@
+{
+  "name": "monorepo",
+  "private": true,
+  "scripts": {
+    "dev": "concurrently --names \"react-client,lang-graph-agent,copilot-runtime\" \"pnpm --filter react-client dev\" \"cd lang-graph-service && poetry run python server.py\" \"cd copilot-runtime-service && pnpm run dev\"",
+    "postinstall": "pnpm --filter react-client install && pnpm --filter copilot-runtime-service install && pnpm --filter lang-graph-service install || (cd lang-graph-service && poetry install)"
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.2"
+  }
+}
