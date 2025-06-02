@@ -1,5 +1,7 @@
 # Minimal Self-Hosted CopilotKit + LangGraph Agent
 
+![Minimal Preview](./react-client/minimal-preview.gif)
+
 ## Components
 
 ```mermaid
