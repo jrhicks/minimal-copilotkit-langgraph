@@ -4,7 +4,7 @@ import viteLogo from '/vite.svg'
 import { CopilotKit } from '@copilotkit/react-core'
 import { CopilotSidebar } from '@copilotkit/react-ui'
 import '@copilotkit/react-ui/styles.css'
-import { useCopilotAction } from '@copilotkit/react-core'
+import { useCopilotAction, useCoAgent } from '@copilotkit/react-core'
 
 function CounterCard() {
   const [count, setCount] = useState(0)
@@ -17,6 +17,19 @@ function CounterCard() {
       setCount((c) => c + 1)
     },
   })
+
+  useCopilotAction({
+    name: "askHuman",
+    available: "remote",
+    parameters: [
+      {
+        name: "question",
+      },
+    ],
+    handler: async ({ question }) => {
+      return window.prompt(question);
+    },
+  });
 
   useCopilotAction({
     name: "resetCounter",
@@ -91,6 +104,7 @@ function App() {
           </div>
           <h1 className="text-5xl font-bold mb-4">Vite + React</h1>
           <CounterCard />
+          <ProverbsCard />
           <p className="text-neutral-400 mt-8">
             Click on the Vite and React logos to learn more
           </p>
@@ -98,6 +112,27 @@ function App() {
       </CopilotSidebar>
     </CopilotKit>
   )
+}
+
+function ProverbsCard() {
+  type AgentState = {
+    language: string;
+    proverbs: string[];
+  };
+
+  const { state } = useCoAgent<AgentState>({
+    name: "sample_agent",
+    initialState: { language: "spanish", proverbs: [] }
+  });
+
+  return (
+    <div className="p-8 rounded-xl bg-neutral-800 shadow-md flex flex-col items-center gap-4 my-6">
+      <h2 className="text-2xl font-bold mb-4">Proverbs</h2>
+      <p className="text-neutral-400">
+        {state.proverbs.join(", ")}
+      </p>
+    </div>
+  );
 }
 
 export default App

@@ -53,7 +53,7 @@ Demonstrates:
    - [ ] Collaborative Planning: The Copilot generates task steps and lets you decide which ones to perform
    - [ ] Interactive Decision Making: Select or deselect steps to customize the execution plan
    - [ ] Adaptive Responses: The Copilot adapts its execution based on your choices, even handling missing steps
-- [ ] 🍳 Shared State
+- [ ] 🍳 [Shared State](https://github.com/CopilotKit/CopilotKit/blob/3a2b0e773f81212ffb5d0d136e3de77739b2bd5d/examples/demo-viewer/agent/demo/langgraph_shared_state/agent.py)
    - [ ] Frontend → Agent: UI controls update the agent's context in real-time
    - [ ] Agent → Frontend: The Copilot's recipe creations instantly update the UI components
 - [ ] 📝 Predictive State Updates Document Editor

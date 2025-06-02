@@ -13,6 +13,9 @@ from langgraph.types import Command
 from langgraph.prebuilt.tool_node import ToolNode
 from copilotkit import CopilotKitState
 from langgraph.checkpoint.memory import InMemorySaver
+import logging
+import json
+from datetime import datetime
 
 class AgentState(CopilotKitState):
     """
@@ -25,12 +28,46 @@ class AgentState(CopilotKitState):
     proverbs: list[str] = []
     # your_custom_agent_state: str = ""
 
+def log_event(event_data):
+    logging.info(json.dumps(event_data))
+
 @tool
 def get_weather(location: str):
     """
     Get the weather for a given location.
     """
     return f"The weather for {location} is 70 degrees."
+
+# @tool
+# def add_proverb(state, proverb: str):
+#     """Add a proverb to the agent's state."""
+#     event_data = {
+#         "event": "add_proverb_called",
+#         "proverb": proverb,
+#         "timestamp": datetime.utcnow().isoformat() + 'Z'
+#     }
+#     log_event(event_data)
+#     raise Exception("add_proverb tool was called")
+#     modified = False
+#     if hasattr(state, "proverbs"):
+#         if state.proverbs is None:
+#             state.proverbs = []
+#         state.proverbs.append(proverb)
+#         modified = True
+#     elif isinstance(state, dict):
+#         if "proverbs" not in state or not isinstance(state["proverbs"], list):
+#             state["proverbs"] = []
+#         state["proverbs"].append(proverb)
+#         modified = True
+#     if modified:
+#         event_data = {
+#             "event": "add_proverb",
+#             "proverb": proverb,
+#             "state_type": type(state).__name__,
+#             "timestamp": datetime.utcnow().isoformat() + 'Z'
+#         }
+#         log_event(event_data)
+#     return f"Added proverb: {proverb}"
 
 # @tool
 # def your_tool_here(your_arg: str):
@@ -40,7 +77,6 @@ def get_weather(location: str):
 
 tools = [
     get_weather
-    # your_tool_here
 ]
 
 async def chat_node(state: AgentState, config: RunnableConfig) -> Command[Literal["tool_node", "__end__"]]:
@@ -55,6 +91,19 @@ async def chat_node(state: AgentState, config: RunnableConfig) -> Command[Litera
     https://www.perplexity.ai/search/react-agents-NcXLQhreS0WDzpVaS4m9Cg
     """
 
+    logger = logging.getLogger("uvicorn")
+    proverbs = state.get("proverbs", []) if isinstance(state, dict) else getattr(state, "proverbs", [])
+    language = state.get("language", None) if isinstance(state, dict) else getattr(state, "language", None)
+    messages = state.get("messages", []) if isinstance(state, dict) else getattr(state, "messages", [])
+    event_data = {
+        "event": "chat_node_called",
+        "proverbs": proverbs,
+        "language": language,
+        "message_count": len(messages) if messages is not None else 0,
+        "timestamp": datetime.utcnow().isoformat() + 'Z'
+    }
+    logger.info(json.dumps(event_data, indent=2))
+
     # 1. Define the model
     model = ChatOpenAI(model="gpt-4o")
 
@@ -62,8 +111,7 @@ async def chat_node(state: AgentState, config: RunnableConfig) -> Command[Litera
     model_with_tools = model.bind_tools(
         [
             *state["copilotkit"]["actions"],
-            get_weather,
-            # your_tool_here
+            get_weather
         ],
 
         # 2.1 Disable parallel tool calls to avoid race conditions,
