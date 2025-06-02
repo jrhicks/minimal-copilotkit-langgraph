@@ -41,38 +41,27 @@ graph TD
 - [x] Self hosted (FastAPI)
 - [ ] LangGraph Platform
 
-## Installation (from root)
+## Running
 
 1. **Clone the repo:**
    ```sh
-   git clone <repo-url>
+   git clone https://github.com/jrhicks/minimal-copilotkit-langgraph.git
    cd lang-graph-copilotkit
    ```
-2. **Install all dependencies:**
-   ```sh
-   pnpm install
-   # This will install dependencies in all subprojects (uses postinstall)
-   ```
-   For Python dependencies (LangGraph agent):
-   ```sh
-   cd lang-graph-service
-   poetry install
-   cd ..
-   ```
-
----
-
-## Running All Services (from root)
 
 1. **Copy environment variables:**
    ```sh
    cp lang-graph-service/.env.example lang-graph-service/.env
-   # Edit lang-graph-service/.env and set your OPENAI_API_KEY
+   # Edit lang-graph-service/.env and set your OPENAI_API_KEY and LANGSMITH_API_KEY
    ```
-2. **Start all services:**
+2. **Install and start all services:**
+
    ```sh
-   pnpm dev
-   # This runs react-client, copilot-runtime-service, and lang-graph-service concurrently
+   pnpm install
+   ```
+
+   ```sh
+   pnpm run dev
    ```
 
 - React client: http://localhost:5173
