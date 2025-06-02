@@ -10,8 +10,9 @@ from langchain_core.runnables import RunnableConfig
 from langchain.tools import tool
 from langgraph.graph import StateGraph, END
 from langgraph.types import Command
-from langgraph.prebuilt import ToolNode
+from langgraph.prebuilt.tool_node import ToolNode
 from copilotkit import CopilotKitState
+from langgraph.checkpoint.memory import InMemorySaver
 
 class AgentState(CopilotKitState):
     """
@@ -50,10 +51,10 @@ async def chat_node(state: AgentState, config: RunnableConfig) -> Command[Litera
     - Getting a response from the model
     - Handling tool calls
 
-    For more about the ReAct design pattern, see: 
+    For more about the ReAct design pattern, see:
     https://www.perplexity.ai/search/react-agents-NcXLQhreS0WDzpVaS4m9Cg
     """
-    
+
     # 1. Define the model
     model = ChatOpenAI(model="gpt-4o")
 
@@ -111,4 +112,4 @@ workflow.add_edge("tool_node", "chat_node")
 workflow.set_entry_point("chat_node")
 
 # Compile the workflow graph
-graph = workflow.compile()
+graph = workflow.compile(checkpointer=InMemorySaver())
