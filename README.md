@@ -1,7 +1,3 @@
-<video src="./preview.mp4" controls width="600">
-  Your browser does not support the video tag.
-</video>
-
 # 👋 Minimal CopilotKit + LangGraph Dojo
 
 Get all AG-UI features betwen langgraph and copilotkit working with minimal cloud/framework dependencies.
@@ -47,7 +43,7 @@ Demonstrates:
    - [x] Frontend Tool Execution: The Copilot can directly interacts with your UI by calling frontend functions,
    - [x] Seamless Integration: Tools defined in the frontend and automatically discovered and made available to the agent,
    - [x] Tool Based Generative UI - Frontend Rendering of Tool Calls: Backend tool calls are automatically rendered in the UI
-   - [] Pause and Resume Control: Frontend tools can pause agent and agent resumes after user input
+   - [x] Pause and Resume Control: Frontend tools can pause agent and agent resumes after user input
 
 - [ ] 🚀 Agentic Generative UI
    - [ ] Real-time Status Updates: The Copilot provides live feedback as it works through complex tasks
@@ -131,13 +127,6 @@ Contributions are welcome!  I'm trying to get all the AG-UI features working.  Y
 - Set your `OPENAI_API_KEY` and `LANGSMITH_API_KEY` in `lang-graph-service/.env`.
 
 ---
-
-## Demo Gif
-
-```sh
-
-
-```
 
 ## License
 
